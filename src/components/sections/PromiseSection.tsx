@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion';
 import HeartIcon from '../HeartIcon';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const promises = [
   "To listen more and assume less",
@@ -9,18 +11,39 @@ const promises = [
 ];
 
 const PromiseSection = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-20 px-4 relative">
+    <section className="py-20 px-4 relative" ref={ref}>
       <div className="max-w-3xl mx-auto">
-        <div className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden">
-          {/* Shimmer effect */}
-          <div className="absolute inset-0 animate-shimmer opacity-50" />
+        <motion.div 
+          className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Animated shimmer */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            animate={{ x: ['-200%', '200%'] }}
+            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+          />
           
           {/* Content */}
           <div className="relative z-10">
             {/* Header */}
-            <div className="text-center mb-12">
-              <HeartIcon className="w-10 h-10 text-primary mx-auto mb-4 animate-heartbeat" />
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <HeartIcon className="w-10 h-10 text-primary mx-auto mb-4" />
+              </motion.div>
               <h2 className="font-romantic text-4xl md:text-5xl text-foreground mb-4">
                 My Promise to You
               </h2>
@@ -28,33 +51,53 @@ const PromiseSection = () => {
                 I can't promise perfection, but I can promise growth. I can promise to try harder, 
                 love deeper, and be more present.
               </p>
-            </div>
+            </motion.div>
 
             {/* Promise list */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {promises.map((promise, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/30 backdrop-blur-sm border border-white/20 hover:bg-white/40 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-white/30 backdrop-blur-sm border border-white/20 cursor-pointer group"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  whileHover={{ 
+                    scale: 1.02, 
+                    backgroundColor: 'rgba(255,255,255,0.5)',
+                    x: 10
+                  }}
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                  <motion.div 
+                    className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center"
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <HeartIcon className="w-4 h-4 text-primary" />
-                  </div>
-                  <p className="font-elegant text-lg md:text-xl text-foreground">
+                  </motion.div>
+                  <p className="font-elegant text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">
                     {promise}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Footer message */}
-            <div className="mt-12 text-center">
-              <p className="font-elegant text-xl text-muted-foreground italic">
+            <motion.div 
+              className="mt-12 text-center"
+              initial={{ opacity: 0 }}
+              animate={isVisible ? { opacity: 1 } : {}}
+              transition={{ delay: 1 }}
+            >
+              <motion.p 
+                className="font-elegant text-xl text-muted-foreground italic"
+                whileHover={{ scale: 1.02 }}
+              >
                 "I'm not perfect, but for you, Parisikha, I'll always try."
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
