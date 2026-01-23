@@ -1,6 +1,7 @@
 import FloatingPetals from '@/components/FloatingPetals';
 import Sparkles from '@/components/Sparkles';
 import InteractiveHearts from '@/components/InteractiveHearts';
+import FloatingMusicPlayer from '@/components/FloatingMusicPlayer';
 import HeroSection from '@/components/sections/HeroSection';
 import ApologySection from '@/components/sections/ApologySection';
 import AdmireSection from '@/components/sections/AdmireSection';
@@ -15,6 +16,7 @@ const Index = () => {
       <FloatingPetals />
       <Sparkles />
       <InteractiveHearts />
+      <FloatingMusicPlayer />
 
       {/* Main content */}
       <main className="relative z-10">
