@@ -1,33 +1,42 @@
-import FloatingPetals from '@/components/FloatingPetals';
-import Sparkles from '@/components/Sparkles';
-import InteractiveHearts from '@/components/InteractiveHearts';
-import FloatingMusicPlayer from '@/components/FloatingMusicPlayer';
-import HeroSection from '@/components/sections/HeroSection';
-import ApologySection from '@/components/sections/ApologySection';
-import AdmireSection from '@/components/sections/AdmireSection';
-import ImpactSection from '@/components/sections/ImpactSection';
-import PromiseSection from '@/components/sections/PromiseSection';
-import ClosingSection from '@/components/sections/ClosingSection';
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import CatchHeartsGame from '@/components/game/CatchHeartsGame';
+import RomanticTransition from '@/components/game/RomanticTransition';
+import ValentineDedication from '@/components/valentine/ValentineDedication';
+
+type GameState = 'game' | 'transition' | 'dedication';
 
 const Index = () => {
-  return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      {/* Background effects */}
-      <FloatingPetals />
-      <Sparkles />
-      <InteractiveHearts />
-      <FloatingMusicPlayer />
+  const [gameState, setGameState] = useState<GameState>('game');
 
-      {/* Main content */}
-      <main className="relative z-10">
-        <HeroSection />
-        <ApologySection />
-        <AdmireSection />
-        <ImpactSection />
-        <PromiseSection />
-        <ClosingSection />
-      </main>
-    </div>
+  const handleGameComplete = () => {
+    setGameState('transition');
+  };
+
+  const handleTransitionComplete = () => {
+    setGameState('dedication');
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      {gameState === 'game' && (
+        <CatchHeartsGame 
+          key="game"
+          onGameComplete={handleGameComplete} 
+        />
+      )}
+      
+      {gameState === 'transition' && (
+        <RomanticTransition 
+          key="transition"
+          onComplete={handleTransitionComplete} 
+        />
+      )}
+      
+      {gameState === 'dedication' && (
+        <ValentineDedication key="dedication" />
+      )}
+    </AnimatePresence>
   );
 };
 
