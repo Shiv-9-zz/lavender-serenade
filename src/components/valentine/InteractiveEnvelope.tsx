@@ -249,29 +249,12 @@ const InteractiveEnvelope = ({ letterContent, onLetterOpened }: InteractiveEnvel
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            {/* Video */}
-            <motion.div
-              className="glass-card p-4 overflow-hidden rounded-2xl"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <video
-                src="/videos/valentine-video.mp4"
-                autoPlay
-                loop
-                playsInline
-                controls
-                className="w-full rounded-xl"
-              />
-            </motion.div>
-
             {/* Letter */}
             <motion.div
               className="glass-card p-6 md:p-10"
               initial={{ opacity: 0, y: 50, rotateX: 90 }}
               animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+              transition={{ duration: 0.8, type: "spring" }}
             >
               <div className="flex justify-center mb-6">
                 <motion.span
@@ -308,6 +291,25 @@ const InteractiveEnvelope = ({ letterContent, onLetterOpened }: InteractiveEnvel
                 </motion.div>
               )}
             </motion.div>
+
+            {/* Video - appears after letter finishes typing */}
+            {displayedText.length === letterContent.length && (
+              <motion.div
+                className="glass-card p-4 overflow-hidden rounded-2xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 1 }}
+              >
+                <video
+                  src="/videos/valentine-video.mp4"
+                  autoPlay
+                  loop
+                  playsInline
+                  controls
+                  className="w-full rounded-xl"
+                />
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
