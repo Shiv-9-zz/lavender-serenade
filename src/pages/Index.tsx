@@ -15,8 +15,9 @@ import ClosingSection from '@/components/sections/ClosingSection';
 import CatchHeartsGame from '@/components/game/CatchHeartsGame';
 import ThemeTransition from '@/components/ThemeTransition';
 import ValentineDedication from '@/components/valentine/ValentineDedication';
+import FullscreenVideo from '@/components/valentine/FullscreenVideo';
 
-type PageState = 'main' | 'game' | 'transition' | 'valentine';
+type PageState = 'main' | 'game' | 'transition' | 'video' | 'valentine';
 
 const Index = () => {
   const { theme } = useTheme();
@@ -31,6 +32,10 @@ const Index = () => {
   }, []);
 
   const handleTransitionComplete = useCallback(() => {
+    setPageState('video');
+  }, []);
+
+  const handleVideoEnd = useCallback(() => {
     setPageState('valentine');
   }, []);
 
@@ -82,6 +87,14 @@ const Index = () => {
         <ThemeTransition 
           key="transition"
           onComplete={handleTransitionComplete} 
+        />
+      )}
+
+      {/* Fullscreen Video after transition */}
+      {pageState === 'video' && (
+        <FullscreenVideo
+          key="video"
+          onVideoEnd={handleVideoEnd}
         />
       )}
 

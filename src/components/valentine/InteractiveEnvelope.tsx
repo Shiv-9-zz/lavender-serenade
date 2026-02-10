@@ -292,24 +292,6 @@ const InteractiveEnvelope = ({ letterContent, onLetterOpened }: InteractiveEnvel
               )}
             </motion.div>
 
-            {/* Video - appears after letter finishes typing */}
-            {displayedText.length === letterContent.length && (
-              <motion.div
-                className="glass-card p-4 overflow-hidden rounded-2xl"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                <video
-                  src="/videos/valentine-video.mp4"
-                  autoPlay
-                  loop
-                  playsInline
-                  controls
-                  className="w-full rounded-xl"
-                />
-              </motion.div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
