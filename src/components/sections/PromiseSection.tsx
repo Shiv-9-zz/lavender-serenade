@@ -14,7 +14,7 @@ const PromiseSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-20 px-4 relative" ref={ref}>
+    <section className="py-20 px-4 relative will-change-transform" ref={ref}>
       <div className="max-w-3xl mx-auto">
         <motion.div 
           className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden"

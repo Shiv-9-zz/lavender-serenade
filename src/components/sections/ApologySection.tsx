@@ -70,7 +70,7 @@ const ApologySection = () => {
   };
 
   return (
-    <section className="py-20 px-4 relative" ref={ref}>
+    <section className="py-20 px-4 relative will-change-transform" ref={ref}>
       <div className="max-w-3xl mx-auto" style={{ perspective: '1500px' }}>
         {/* Navigation arrows - outside the card */}
         <div className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-30">

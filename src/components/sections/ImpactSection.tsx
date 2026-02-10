@@ -15,7 +15,7 @@ const ImpactSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden" ref={ref}>
+    <section className="py-20 px-4 relative overflow-hidden will-change-transform" ref={ref}>
       {/* Animated background orbs */}
       <motion.div 
         className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl"
