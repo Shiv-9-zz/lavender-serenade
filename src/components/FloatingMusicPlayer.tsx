@@ -158,7 +158,7 @@ const FloatingMusicPlayer = () => {
 
                     {/* Song title */}
                     <span className="text-xs text-foreground/80 whitespace-nowrap font-romantic">
-                      Ishq Wala Love
+                      Raat Bhar
                     </span>
 
                     {/* Mute button */}
