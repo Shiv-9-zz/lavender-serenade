@@ -18,13 +18,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    // Save theme preference
     localStorage.setItem('romantic-theme', theme);
-    
-    // Update document class
-    const root = document.documentElement;
-    root.classList.remove('theme-lavender', 'theme-valentine');
-    root.classList.add(`theme-${theme}`);
   }, [theme]);
 
   const toggleTheme = () => {
