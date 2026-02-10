@@ -2,7 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Music, Volume2, VolumeX } from 'lucide-react';
 
-const FloatingMusicPlayer = () => {
+interface FloatingMusicPlayerProps {
+  songSrc?: string;
+  songName?: string;
+}
+
+const FloatingMusicPlayer = ({ songSrc = '/audio/background-music.mp3', songName = 'Now Playing' }: FloatingMusicPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -52,7 +57,7 @@ const FloatingMusicPlayer = () => {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/background-music.mp3" loop />
+      <audio ref={audioRef} src={songSrc} loop />
       
       <motion.div
         className="fixed bottom-6 right-6 z-50"
@@ -158,7 +163,7 @@ const FloatingMusicPlayer = () => {
 
                     {/* Song title */}
                     <span className="text-xs text-foreground/80 whitespace-nowrap font-romantic">
-                      Raat Bhar
+                      {songName}
                     </span>
 
                     {/* Mute button */}
