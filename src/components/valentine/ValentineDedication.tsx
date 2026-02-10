@@ -34,12 +34,11 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
 
   // Placeholder photos - user can replace with actual photos
   const photos = [
-    { id: 1, src: '/placeholder.svg', caption: 'Our first memory' },
-    { id: 2, src: '/placeholder.svg', caption: 'That special day' },
-    { id: 3, src: '/placeholder.svg', caption: 'Together forever' },
-    { id: 4, src: '/placeholder.svg', caption: 'My favorite smile' },
-    { id: 5, src: '/placeholder.svg', caption: 'Adventures await' },
-    { id: 6, src: '/placeholder.svg', caption: 'Love in bloom' },
+    { id: 1, src: '/images/photo1.jpeg', caption: 'That beautiful smile' },
+    { id: 2, src: '/images/photo2.jpeg', caption: 'Stunning as always' },
+    { id: 3, src: '/images/photo3.jpeg', caption: 'Among the flowers' },
+    { id: 4, src: '/images/photo4.jpeg', caption: 'My favorite person' },
+    { id: 5, src: '/images/photo5.jpeg', caption: 'Adorable you' },
   ];
 
   return (
