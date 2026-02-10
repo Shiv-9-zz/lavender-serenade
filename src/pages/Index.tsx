@@ -40,7 +40,7 @@ const Index = () => {
       {pageState === 'main' && (
         <motion.div
           key="main"
-          className="relative min-h-screen overflow-x-hidden"
+          className="theme-lavender relative min-h-screen overflow-x-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -89,6 +89,7 @@ const Index = () => {
       {pageState === 'valentine' && (
         <motion.div
           key="valentine"
+          className="theme-valentine"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
