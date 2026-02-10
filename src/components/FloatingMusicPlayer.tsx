@@ -25,8 +25,30 @@ const FloatingMusicPlayer = () => {
       setProgress(0);
     });
 
+    // Auto-play on first user interaction (browser policy requires a gesture)
+    const autoPlay = () => {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+      document.removeEventListener('click', autoPlay);
+      document.removeEventListener('touchstart', autoPlay);
+    };
+
+    // Try immediate play first
+    audio.play().then(() => {
+      setIsPlaying(true);
+    }).catch(() => {
+      // If blocked, wait for first interaction
+      document.addEventListener('click', autoPlay);
+      document.addEventListener('touchstart', autoPlay);
+    });
+
     return () => {
       audio.removeEventListener('timeupdate', updateProgress);
+      document.removeEventListener('click', autoPlay);
+      document.removeEventListener('touchstart', autoPlay);
     };
   }, []);
 
