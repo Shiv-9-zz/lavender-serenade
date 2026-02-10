@@ -263,7 +263,8 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
   return (
     <motion.div 
       ref={gameAreaRef}
-      className="min-h-screen relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-accent/10 touch-none select-none"
+      className="min-h-screen relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-accent/10 select-none"
+      style={{ touchAction: 'none' }}
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
       initial={{ opacity: 0 }}
@@ -338,8 +339,8 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
 
       {/* Basket */}
       <motion.div
-        className="absolute bottom-[10%] -translate-x-1/2 z-10"
-        style={{ left: `${basketX}%` }}
+        className="absolute bottom-[10%] z-10"
+        style={{ left: `${basketX}%`, translateX: '-50%' }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 0.5, repeat: Infinity }}
       >
