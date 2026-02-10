@@ -245,48 +245,69 @@ const InteractiveEnvelope = ({ letterContent, onLetterOpened }: InteractiveEnvel
         ) : (
           <motion.div
             key="letter"
-            className="glass-card p-6 md:p-10"
-            initial={{ opacity: 0, y: 50, rotateX: 90 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.8, type: "spring" }}
+            className="space-y-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            {/* Letter header decoration */}
-            <div className="flex justify-center mb-6">
-              <motion.span
-                className="text-4xl"
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                💕
-              </motion.span>
-            </div>
-
-            {/* Letter content with typewriter effect */}
-            <div className="font-elegant text-lg md:text-xl leading-relaxed text-foreground/90 whitespace-pre-line">
-              {displayedText}
-              <motion.span
-                className="inline-block w-0.5 h-5 bg-primary ml-1"
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
+            {/* Video */}
+            <motion.div
+              className="glass-card p-4 overflow-hidden rounded-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <video
+                src="/videos/valentine-video.mp4"
+                autoPlay
+                loop
+                playsInline
+                controls
+                className="w-full rounded-xl"
               />
-            </div>
+            </motion.div>
 
-            {/* Signature */}
-            {displayedText.length === letterContent.length && (
-              <motion.div
-                className="mt-8 text-right"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <p className="font-romantic text-2xl text-primary">
-                  With all my love,
-                </p>
-                <p className="font-romantic text-3xl text-primary mt-2">
-                  Forever Yours 💖
-                </p>
-              </motion.div>
-            )}
+            {/* Letter */}
+            <motion.div
+              className="glass-card p-6 md:p-10"
+              initial={{ opacity: 0, y: 50, rotateX: 90 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+            >
+              <div className="flex justify-center mb-6">
+                <motion.span
+                  className="text-4xl"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  💕
+                </motion.span>
+              </div>
+
+              <div className="font-elegant text-lg md:text-xl leading-relaxed text-foreground/90 whitespace-pre-line">
+                {displayedText}
+                <motion.span
+                  className="inline-block w-0.5 h-5 bg-primary ml-1"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                />
+              </div>
+
+              {displayedText.length === letterContent.length && (
+                <motion.div
+                  className="mt-8 text-right"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <p className="font-romantic text-2xl text-primary">
+                    With all my love,
+                  </p>
+                  <p className="font-romantic text-3xl text-primary mt-2">
+                    Forever Yours 💖
+                  </p>
+                </motion.div>
+              )}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
