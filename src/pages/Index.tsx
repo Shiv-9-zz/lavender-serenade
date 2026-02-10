@@ -54,7 +54,7 @@ const Index = () => {
           <FloatingPetals />
           <Sparkles />
           <InteractiveHearts />
-          <FloatingMusicPlayer />
+          <FloatingMusicPlayer songSrc="/audio/raat-bhar.mp3" songName="Raat Bhar" />
 
           {/* Hidden game trigger */}
           <HiddenGameTrigger onTrigger={handleGameTrigger} />

@@ -47,7 +47,7 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
       <FloatingPetals />
       <Sparkles />
       <InteractiveHearts />
-      <FloatingMusicPlayer />
+      <FloatingMusicPlayer songSrc="/audio/ishq-wala-love.mp3" songName="Ishq Wala Love" />
 
       {/* Background gradient */}
       <div className="fixed inset-0 bg-gradient-to-b from-primary/10 via-background to-accent/10 -z-10" />
