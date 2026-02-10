@@ -29,8 +29,8 @@ const Sparkles = () => {
         color: colors[Math.floor(Math.random() * colors.length)],
       };
       
-      setSparkles(prev => [...prev.slice(-15), newSparkle]);
-    }, 300);
+      setSparkles(prev => [...prev.slice(-8), newSparkle]);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);

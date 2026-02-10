@@ -3,7 +3,7 @@ import HeartIcon from '../HeartIcon';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative px-4 py-20 overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative px-4 py-20 overflow-hidden will-change-transform">
       {/* Animated background orbs */}
       <motion.div
         className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl"

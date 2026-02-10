@@ -15,7 +15,7 @@ const FloatingPetals = () => {
   useEffect(() => {
     const generatePetals = () => {
       const newPetals: Petal[] = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 10; i++) {
         newPetals.push({
           id: i,
           left: Math.random() * 100,
@@ -69,7 +69,7 @@ const FloatingPetals = () => {
       ))}
       
       {/* Ambient glow particles */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <div
           key={`glow-${i}`}
           className="absolute rounded-full animate-gentle-pulse"

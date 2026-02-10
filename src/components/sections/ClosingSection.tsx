@@ -6,7 +6,7 @@ const ClosingSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-24 px-4 relative" ref={ref}>
+    <section className="py-24 px-4 relative will-change-transform" ref={ref}>
       <div className="max-w-4xl mx-auto text-center">
         {/* Decorative hearts wave */}
         <motion.div 
