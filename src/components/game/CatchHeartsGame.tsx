@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import HeartIcon from '@/components/HeartIcon';
 
 interface FallingHeart {
@@ -69,22 +69,27 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
     return () => clearInterval(spawnInterval);
   }, [gameStarted, gameWon]);
 
-  // Update heart positions and check collisions
+  // Update heart positions and check collisions using requestAnimationFrame
+  const basketXRef = useRef(basketX);
+  basketXRef.current = basketX;
+
   useEffect(() => {
     if (!gameStarted || gameWon) return;
 
-    const gameLoop = setInterval(() => {
+    let animId: number;
+    let lastTime = performance.now();
+
+    const tick = (now: number) => {
+      const delta = (now - lastTime) / 16; // normalize to ~60fps
+      lastTime = now;
+
       setHearts(prev => {
         const updated: FallingHeart[] = [];
-        
         prev.forEach(heart => {
-          const newY = heart.y + heart.speed;
-          
-          // Check if caught by basket (basket is at ~85% from top)
+          const newY = heart.y + heart.speed * delta;
           if (newY >= 75 && newY <= 90) {
-            const distance = Math.abs(heart.x - basketX);
+            const distance = Math.abs(heart.x - basketXRef.current);
             if (distance < 15) {
-              // Caught!
               setScore(s => {
                 const newScore = s + 1;
                 if (newScore % 3 === 0) {
@@ -93,22 +98,21 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
                 }
                 return newScore;
               });
-              return; // Don't add to updated array
+              return;
             }
           }
-          
-          // Remove hearts that fell below
           if (newY > 110) return;
-          
           updated.push({ ...heart, y: newY });
         });
-        
         return updated;
       });
-    }, 50);
 
-    return () => clearInterval(gameLoop);
-  }, [gameStarted, gameWon, basketX]);
+      animId = requestAnimationFrame(tick);
+    };
+
+    animId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animId);
+  }, [gameStarted, gameWon]);
 
   // Timer countdown
   useEffect(() => {
@@ -292,48 +296,34 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
       </div>
 
       {/* Encouragement text */}
-      <AnimatePresence>
-        {encouragement && (
-          <motion.div
-            className="absolute top-20 left-1/2 -translate-x-1/2 z-20"
-            initial={{ opacity: 0, y: -20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.8 }}
-          >
-            <span className="font-romantic text-2xl text-primary text-glow">
-              {encouragement}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {encouragement && (
+        <div
+          className="absolute top-20 left-1/2 -translate-x-1/2 z-20 animate-fade-in"
+        >
+          <span className="font-romantic text-2xl text-primary text-glow">
+            {encouragement}
+          </span>
+        </div>
+      )}
 
-      {/* Falling hearts */}
-      <AnimatePresence>
-        {hearts.map(heart => (
-          <motion.div
-            key={heart.id}
-            className="absolute text-primary pointer-events-none"
-            style={{
-              left: `${heart.x}%`,
-              top: `${heart.y}%`,
-              transform: 'translate(-50%, -50%)',
-            }}
-            initial={{ opacity: 0, scale: 0, rotate: -30 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              rotate: [0, 15, -15, 0],
-            }}
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ rotate: { duration: 1, repeat: Infinity } }}
-          >
-            <HeartIcon 
-              className="drop-shadow-lg" 
-              style={{ width: heart.size, height: heart.size }}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+      {/* Falling hearts - plain divs for performance */}
+      {hearts.map(heart => (
+        <div
+          key={heart.id}
+          className="absolute text-primary pointer-events-none"
+          style={{
+            left: `${heart.x}%`,
+            top: `${heart.y}%`,
+            transform: 'translate(-50%, -50%)',
+            willChange: 'top',
+          }}
+        >
+          <HeartIcon 
+            className="drop-shadow-lg" 
+            style={{ width: heart.size, height: heart.size }}
+          />
+        </div>
+      ))}
 
       {/* Basket */}
       <div
