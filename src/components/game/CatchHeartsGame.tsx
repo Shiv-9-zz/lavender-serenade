@@ -338,18 +338,10 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
       </AnimatePresence>
 
       {/* Basket */}
-      <motion.div
+      <div
         className="absolute bottom-[10%] z-10"
-        animate={{ 
-          left: `${basketX}%`,
-          x: '-50%',
-          y: [0, -5, 0] 
-        }}
-        transition={{ 
-          left: { type: 'spring', stiffness: 300, damping: 25 },
-          x: { duration: 0 },
-          y: { duration: 0.5, repeat: Infinity }
-        }}>
+        style={{ left: `${basketX}%`, transform: 'translateX(-50%)' }}
+      >
         <div className="relative">
           {/* Basket glow */}
           <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full scale-150" />
@@ -393,7 +385,7 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Instructions */}
       <motion.div 
