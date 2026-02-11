@@ -261,14 +261,12 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
   }
 
   return (
-    <motion.div 
+    <div 
       ref={gameAreaRef}
       className="min-h-screen relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-accent/10 select-none"
       style={{ touchAction: 'none' }}
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
     >
       {/* HUD */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-20">
@@ -398,7 +396,7 @@ const CatchHeartsGame = ({ onGameComplete }: CatchHeartsGameProps) => {
           Move your finger or mouse to catch hearts! 💕
         </p>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
