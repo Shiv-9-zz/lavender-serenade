@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import ILoveYouRain from './ILoveYouRain';
 import FloatingPetals from '@/components/FloatingPetals';
 import Sparkles from '@/components/Sparkles';
 import InteractiveHearts from '@/components/InteractiveHearts';
@@ -10,6 +11,7 @@ import HeartIcon from '@/components/HeartIcon';
 
 const ValentineDedication = () => {
   const [letterOpened, setLetterOpened] = useState(false);
+  const [showRain, setShowRain] = useState(false);
   const musicStartedRef = useRef(false);
 
   // Auto-start music when dedication page loads
@@ -167,6 +169,7 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
                   className="px-8 py-4 bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground rounded-full font-romantic text-xl shadow-lg"
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px hsl(var(--primary) / 0.5)" }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowRain(true)}
                   animate={{ 
                     backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                   }}
@@ -205,6 +208,11 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
           </motion.section>
         )}
       </main>
+
+      {/* I Love You Rain Effect */}
+      <AnimatePresence>
+        {showRain && <ILoveYouRain onClose={() => setShowRain(false)} />}
+      </AnimatePresence>
     </div>
   );
 };
