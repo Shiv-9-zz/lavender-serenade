@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
 import FloatingPetals from '@/components/FloatingPetals';
@@ -19,7 +19,7 @@ import ValentineDedication from '@/components/valentine/ValentineDedication';
 import FullscreenVideo from '@/components/valentine/FullscreenVideo';
 import AuroraBackground from '@/components/AuroraBackground';
 
-type PageState = 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
+type PageState = 'loading' | 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
 
 const pageTransition = {
   initial: { opacity: 0, scale: 1.02, filter: 'blur(8px)' },
@@ -30,7 +30,7 @@ const pageTransition = {
 
 const Index = () => {
   const { theme } = useTheme();
-  const [pageState, setPageState] = useState<PageState>('main');
+  const [pageState, setPageState] = useState<PageState>('loading');
 
   const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
   const handleGameComplete = useCallback(() => { setPageState('transition'); }, []);
@@ -38,8 +38,90 @@ const Index = () => {
   const handleVideoEnd = useCallback(() => { setPageState('proposal'); }, []);
   const handleProposalComplete = useCallback(() => { setPageState('valentine'); }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setPageState('main'), 3500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
+      {pageState === 'loading' && (
+        <motion.div
+          key="loading"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, hsl(340, 40%, 6%), hsl(340, 30%, 10%), hsl(330, 35%, 8%))' }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.1, filter: 'blur(12px)' }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
+        >
+          {/* Ambient glow */}
+          <motion.div
+            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, hsla(340, 70%, 50%, 0.15) 0%, transparent 70%)' }}
+            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+
+          {/* Pulsing heart */}
+          <motion.div
+            className="text-7xl md:text-8xl mb-8"
+            animate={{ scale: [0.8, 1.1, 0.8] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            💖
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            className="font-romantic text-3xl md:text-5xl text-center mb-3"
+            style={{ color: 'hsl(340, 70%, 65%)', textShadow: '0 0 30px hsla(340, 70%, 55%, 0.5)' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Made with Love
+          </motion.h1>
+
+          <motion.p
+            className="font-elegant text-base text-center italic"
+            style={{ color: 'hsla(340, 40%, 65%, 0.6)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            just for you...
+          </motion.p>
+
+          {/* Loading dots */}
+          <div className="flex gap-2 mt-10">
+            {[0, 1, 2].map(i => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 rounded-full"
+                style={{ background: 'hsl(340, 70%, 60%)' }}
+                animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+                transition={{ duration: 1.2, delay: i * 0.2, repeat: Infinity }}
+              />
+            ))}
+          </div>
+
+          {/* Floating mini hearts */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-lg pointer-events-none select-none"
+              style={{ left: `${15 + Math.random() * 70}%`, top: `${10 + Math.random() * 80}%` }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1, 0.5], y: [0, -40, -80] }}
+              transition={{ duration: 3 + Math.random() * 2, delay: 0.5 + Math.random() * 2, repeat: Infinity }}
+            >
+              {['💕', '💗', '✨', '🌹', '💖', '💘', '🌸', '❤️'][i]}
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
+
       {pageState === 'main' && (
         <motion.div
           key="main"
