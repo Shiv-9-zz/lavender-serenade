@@ -1,85 +1,65 @@
 import { useEffect, useState } from 'react';
 
-interface Petal {
+interface Star {
   id: number;
   left: number;
   delay: number;
   duration: number;
   size: number;
   opacity: number;
+  top: number;
 }
 
 const FloatingPetals = () => {
-  const [petals, setPetals] = useState<Petal[]>([]);
+  const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const generatePetals = () => {
-      const newPetals: Petal[] = [];
-      for (let i = 0; i < 10; i++) {
-        newPetals.push({
-          id: i,
-          left: Math.random() * 100,
-          delay: Math.random() * 10,
-          duration: 15 + Math.random() * 20,
-          size: 10 + Math.random() * 20,
-          opacity: 0.3 + Math.random() * 0.5,
-        });
-      }
-      setPetals(newPetals);
-    };
-
-    generatePetals();
+    const generated: Star[] = [];
+    for (let i = 0; i < 20; i++) {
+      generated.push({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: Math.random() * 8,
+        duration: 3 + Math.random() * 5,
+        size: 1 + Math.random() * 3,
+        opacity: 0.2 + Math.random() * 0.6,
+      });
+    }
+    setStars(generated);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {petals.map((petal) => (
+      {/* Twinkling stars */}
+      {stars.map((star) => (
         <div
-          key={petal.id}
-          className="absolute animate-petal"
+          key={star.id}
+          className="absolute rounded-full animate-twinkle"
           style={{
-            left: `${petal.left}%`,
-            animationDelay: `${petal.delay}s`,
-            animationDuration: `${petal.duration}s`,
+            left: `${star.left}%`,
+            top: `${star.top}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            backgroundColor: `hsla(38, ${50 + Math.random() * 30}%, ${65 + Math.random() * 25}%, ${star.opacity})`,
+            animationDelay: `${star.delay}s`,
+            animationDuration: `${star.duration}s`,
           }}
-        >
-          <svg
-            width={petal.size}
-            height={petal.size}
-            viewBox="0 0 24 24"
-            fill="none"
-            style={{ opacity: petal.opacity }}
-          >
-            <ellipse
-              cx="12"
-              cy="12"
-              rx="8"
-              ry="12"
-              fill="url(#petalGradient)"
-              transform="rotate(-30 12 12)"
-            />
-            <defs>
-              <linearGradient id="petalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(280, 60%, 85%)" />
-                <stop offset="100%" stopColor="hsl(270, 50%, 75%)" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+        />
       ))}
       
-      {/* Ambient glow particles */}
-      {[...Array(4)].map((_, i) => (
+      {/* Ambient glow spots */}
+      {[...Array(3)].map((_, i) => (
         <div
           key={`glow-${i}`}
           className="absolute rounded-full animate-gentle-pulse"
           style={{
-            left: `${10 + i * 12}%`,
-            top: `${20 + (i % 3) * 30}%`,
-            width: `${100 + i * 30}px`,
-            height: `${100 + i * 30}px`,
-            background: `radial-gradient(circle, hsla(270, 60%, 80%, 0.15) 0%, transparent 70%)`,
-            animationDelay: `${i * 0.5}s`,
+            left: `${15 + i * 30}%`,
+            top: `${25 + (i % 2) * 40}%`,
+            width: `${120 + i * 40}px`,
+            height: `${120 + i * 40}px`,
+            background: `radial-gradient(circle, hsla(38, 65%, 55%, 0.04) 0%, transparent 70%)`,
+            animationDelay: `${i * 1.5}s`,
           }}
         />
       ))}

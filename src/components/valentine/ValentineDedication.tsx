@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ILoveYouRain from './ILoveYouRain';
 import FloatingPetals from '@/components/FloatingPetals';
@@ -14,12 +14,8 @@ const ValentineDedication = () => {
   const [showRain, setShowRain] = useState(false);
   const musicStartedRef = useRef(false);
 
-  // Auto-start music when dedication page loads
   useEffect(() => {
-    if (!musicStartedRef.current) {
-      musicStartedRef.current = true;
-      // Music player handles its own state, just marking that we're ready
-    }
+    if (!musicStartedRef.current) { musicStartedRef.current = true; }
   }, []);
 
   const loveLetterContent = `My Dearest Love,
@@ -34,7 +30,6 @@ Thank you for being you - for being mine.
 
 Happy Valentine's Day, my love. Today and always, you have my heart.`;
 
-  // Placeholder photos - user can replace with actual photos
   const photos = [
     { id: 1, src: '/images/photo1.jpeg', caption: 'That beautiful smile' },
     { id: 2, src: '/images/photo2.jpeg', caption: 'Stunning as always' },
@@ -45,16 +40,13 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      {/* Background effects */}
       <FloatingPetals />
       <Sparkles />
       <InteractiveHearts />
       <FloatingMusicPlayer songSrc="/audio/ishq-wala-love.mp3" songName="Ishq Wala Love" />
 
-      {/* Background gradient */}
-      <div className="fixed inset-0 bg-gradient-to-b from-primary/10 via-background to-accent/10 -z-10" />
+      <div className="fixed inset-0 bg-gradient-to-b from-primary/5 via-background to-accent/5 -z-10" />
 
-      {/* Main content */}
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
@@ -66,10 +58,7 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
           >
             <motion.div
               className="text-6xl md:text-7xl mb-4"
-              animate={{ 
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0]
-              }}
+              animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
               💝
@@ -82,13 +71,11 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
             </p>
           </motion.div>
 
-          {/* Interactive Envelope */}
           <InteractiveEnvelope 
             letterContent={loveLetterContent}
             onLetterOpened={() => setLetterOpened(true)}
           />
 
-          {/* Scroll indicator */}
           {letterOpened && (
             <motion.div
               className="mt-12"
@@ -96,27 +83,18 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
               animate={{ opacity: 1, y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
-              <p className="font-elegant text-muted-foreground text-center">
-                Scroll down for more surprises
-              </p>
+              <p className="font-elegant text-muted-foreground text-center">Scroll down for more surprises</p>
               <div className="text-2xl text-center mt-2">↓</div>
             </motion.div>
           )}
         </section>
 
-        {/* Photo Gallery Section */}
         {letterOpened && (
-          <motion.section
-            className="py-16 md:py-24"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
+          <motion.section className="py-16 md:py-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             <PhotoGallery photos={photos} />
           </motion.section>
         )}
 
-        {/* Final Message Section */}
         {letterOpened && (
           <motion.section
             className="min-h-screen flex flex-col items-center justify-center px-4 py-16"
@@ -130,22 +108,14 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
             >
-              {/* Floating hearts decoration */}
               <div className="flex justify-center gap-4 mb-8">
                 {[...Array(5)].map((_, i) => (
                   <motion.div
                     key={i}
-                    animate={{ 
-                      y: [0, -10, 0],
-                      rotate: [0, 10, -10, 0]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      delay: i * 0.2,
-                      repeat: Infinity 
-                    }}
+                    animate={{ y: [0, -10, 0], rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, delay: i * 0.2, repeat: Infinity }}
                   >
-                    <HeartIcon className="w-6 h-6 text-primary/60" />
+                    <HeartIcon className="w-5 h-5 text-primary/50" />
                   </motion.div>
                 ))}
               </div>
@@ -167,24 +137,19 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
               >
                 <motion.button
                   className="px-8 py-4 bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground rounded-full font-romantic text-xl shadow-lg"
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px hsl(var(--primary) / 0.5)" }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px hsl(var(--primary) / 0.4)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowRain(true)}
-                  animate={{ 
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{ 
-                    backgroundPosition: { duration: 3, repeat: Infinity }
-                  }}
+                  animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+                  transition={{ backgroundPosition: { duration: 3, repeat: Infinity } }}
                   style={{ backgroundSize: '200% 200%' }}
                 >
                   Will you always stay with me? 💕
                 </motion.button>
               </motion.div>
 
-              {/* Signature */}
               <motion.p
-                className="mt-8 font-romantic text-2xl text-primary/80"
+                className="mt-8 font-romantic text-2xl text-primary/70"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -194,13 +159,9 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
               </motion.p>
             </motion.div>
 
-            {/* Bottom decoration */}
             <motion.div
               className="mt-16 text-6xl"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 5, -5, 0]
-              }}
+              animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               💑
@@ -209,7 +170,6 @@ Happy Valentine's Day, my love. Today and always, you have my heart.`;
         )}
       </main>
 
-      {/* I Love You Rain Effect */}
       <AnimatePresence>
         {showRain && <ILoveYouRain onClose={() => setShowRain(false)} />}
       </AnimatePresence>

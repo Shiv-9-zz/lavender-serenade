@@ -14,7 +14,7 @@ const PromiseSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-20 px-4 relative will-change-transform" ref={ref}>
+    <section className="py-24 px-4 relative will-change-transform" ref={ref}>
       <div className="max-w-3xl mx-auto">
         <motion.div 
           className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden"
@@ -22,14 +22,13 @@ const PromiseSection = () => {
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          {/* Animated shimmer */}
+          {/* Shimmer */}
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
             animate={{ x: ['-200%', '200%'] }}
-            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+            transition={{ duration: 4, repeat: Infinity, repeatDelay: 3 }}
           />
           
-          {/* Content */}
           <div className="relative z-10">
             {/* Header */}
             <motion.div 
@@ -39,10 +38,10 @@ const PromiseSection = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{ scale: [1, 1.15, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
               >
-                <HeartIcon className="w-10 h-10 text-primary mx-auto mb-4" />
+                <HeartIcon className="w-8 h-8 text-primary mx-auto mb-4" />
               </motion.div>
               <h2 className="font-romantic text-4xl md:text-5xl text-foreground mb-4">
                 My Promise to You
@@ -54,35 +53,31 @@ const PromiseSection = () => {
             </motion.div>
 
             {/* Promise list */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {promises.map((promise, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/30 backdrop-blur-sm border border-white/20 cursor-pointer group"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/5 cursor-pointer group"
                   initial={{ opacity: 0, x: -30 }}
                   animate={isVisible ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ 
-                    scale: 1.02, 
-                    backgroundColor: 'rgba(255,255,255,0.5)',
-                    x: 10
-                  }}
+                  whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)', x: 8 }}
                 >
                   <motion.div 
-                    className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center"
+                    className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20"
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <HeartIcon className="w-4 h-4 text-primary" />
+                    <HeartIcon className="w-3.5 h-3.5 text-primary" />
                   </motion.div>
-                  <p className="font-elegant text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">
+                  <p className="font-elegant text-lg md:text-xl text-foreground/80 group-hover:text-primary transition-colors">
                     {promise}
                   </p>
                 </motion.div>
               ))}
             </div>
 
-            {/* Footer message */}
+            {/* Footer */}
             <motion.div 
               className="mt-12 text-center"
               initial={{ opacity: 0 }}
