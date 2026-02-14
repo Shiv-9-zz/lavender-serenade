@@ -55,68 +55,102 @@ const Index = () => {
           exit={{ opacity: 0, scale: 1.1, filter: 'blur(12px)' }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          {/* Ambient glow */}
+          {/* Ambient glow - layered */}
           <motion.div
-            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, hsla(340, 70%, 50%, 0.15) 0%, transparent 70%)' }}
-            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+            className="absolute w-[500px] h-[500px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, hsla(340, 70%, 50%, 0.18) 0%, transparent 70%)' }}
+            animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.5, 0.2] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
-
-          {/* Pulsing heart */}
           <motion.div
-            className="text-7xl md:text-8xl mb-8"
-            animate={{ scale: [0.8, 1.1, 0.8] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            💖
-          </motion.div>
+            className="absolute w-[300px] h-[300px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, hsla(350, 80%, 60%, 0.12) 0%, transparent 60%)' }}
+            animate={{ scale: [1.2, 0.9, 1.2], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+          />
 
-          {/* Title */}
+          {/* Pulsing heart with glow ring */}
+          <div className="relative mb-10">
+            <motion.div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{ background: 'radial-gradient(circle, hsla(340, 80%, 55%, 0.3) 0%, transparent 60%)', width: 160, height: 160, top: -30, left: -30 }}
+              animate={{ scale: [0.8, 1.3, 0.8], opacity: [0.2, 0.5, 0.2] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <motion.div
+              className="text-8xl md:text-9xl relative z-10"
+              animate={{ scale: [0.75, 1.15, 0.75] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ filter: 'drop-shadow(0 0 25px hsla(340, 80%, 55%, 0.5))' }}
+            >
+              💖
+            </motion.div>
+          </div>
+
+          {/* Title with staggered letters effect */}
           <motion.h1
-            className="font-romantic text-3xl md:text-5xl text-center mb-3"
-            style={{ color: 'hsl(340, 70%, 65%)', textShadow: '0 0 30px hsla(340, 70%, 55%, 0.5)' }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            className="font-romantic text-4xl md:text-6xl text-center mb-3"
+            style={{ color: 'hsl(340, 70%, 65%)', textShadow: '0 0 40px hsla(340, 70%, 55%, 0.6), 0 0 80px hsla(340, 70%, 55%, 0.2)' }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
           >
             Made with Love
           </motion.h1>
 
           <motion.p
-            className="font-elegant text-base text-center italic"
-            style={{ color: 'hsla(340, 40%, 65%, 0.6)' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            className="font-elegant text-lg md:text-xl text-center italic mb-2"
+            style={{ color: 'hsla(340, 40%, 70%, 0.7)' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
           >
             just for you...
           </motion.p>
 
+          {/* Heartbeat line */}
+          <motion.div
+            className="w-40 h-px mt-6 mb-8"
+            style={{ background: 'linear-gradient(90deg, transparent, hsl(340, 70%, 55%), transparent)' }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: [0, 0.6, 0.3] }}
+            transition={{ delay: 1, duration: 1.2, opacity: { duration: 2, repeat: Infinity } }}
+          />
+
           {/* Loading dots */}
-          <div className="flex gap-2 mt-10">
+          <div className="flex gap-3 mt-2">
             {[0, 1, 2].map(i => (
               <motion.div
                 key={i}
-                className="w-2 h-2 rounded-full"
-                style={{ background: 'hsl(340, 70%, 60%)' }}
-                animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-                transition={{ duration: 1.2, delay: i * 0.2, repeat: Infinity }}
+                className="w-2.5 h-2.5 rounded-full"
+                style={{ background: 'hsl(340, 70%, 60%)', boxShadow: '0 0 8px hsla(340, 70%, 55%, 0.5)' }}
+                animate={{ opacity: [0.3, 1, 0.3], scale: [0.7, 1.3, 0.7] }}
+                transition={{ duration: 1, delay: i * 0.25, repeat: Infinity }}
               />
             ))}
           </div>
 
-          {/* Floating mini hearts */}
-          {[...Array(8)].map((_, i) => (
+          {/* Floating emoji - more variety and spread */}
+          {[...Array(14)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute text-lg pointer-events-none select-none"
-              style={{ left: `${15 + Math.random() * 70}%`, top: `${10 + Math.random() * 80}%` }}
+              className="absolute pointer-events-none select-none"
+              style={{
+                left: `${8 + Math.random() * 84}%`,
+                top: `${5 + Math.random() * 90}%`,
+                fontSize: `${16 + Math.random() * 16}px`,
+              }}
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1, 0.5], y: [0, -40, -80] }}
-              transition={{ duration: 3 + Math.random() * 2, delay: 0.5 + Math.random() * 2, repeat: Infinity }}
+              animate={{
+                opacity: [0, 0.5, 0],
+                scale: [0.4, 1.1, 0.4],
+                y: [0, -50 - Math.random() * 60, -100 - Math.random() * 40],
+                x: [(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 40],
+                rotate: [0, (Math.random() - 0.5) * 40],
+              }}
+              transition={{ duration: 3 + Math.random() * 3, delay: Math.random() * 3, repeat: Infinity }}
             >
-              {['💕', '💗', '✨', '🌹', '💖', '💘', '🌸', '❤️'][i]}
+              {['💕', '💗', '✨', '🌹', '💖', '💘', '🌸', '❤️', '💝', '🥀', '💫', '🦋', '🌺', '💐'][i]}
             </motion.div>
           ))}
         </motion.div>
