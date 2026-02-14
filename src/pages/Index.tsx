@@ -157,29 +157,31 @@ const Index = () => {
       )}
 
       {pageState === 'main' && (
-        <motion.div
-          key="main"
-          className="theme-lavender relative min-h-screen overflow-x-hidden"
-          {...pageTransition}
-        >
-          <AuroraBackground />
-          <FloatingPetals />
-          <Sparkles />
-          <InteractiveHearts />
+        <>
           <FloatingMusicPlayer songSrc="/audio/raat-bhar.mp3" songName="Raat Bhar" />
           <HiddenGameTrigger onTrigger={handleGameTrigger} />
+          <motion.div
+            key="main"
+            className="theme-lavender relative min-h-screen overflow-x-hidden"
+            {...pageTransition}
+          >
+            <AuroraBackground />
+            <FloatingPetals />
+            <Sparkles />
+            <InteractiveHearts />
 
-          <div className="fixed inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 -z-5 pointer-events-none" />
+            <div className="fixed inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 -z-5 pointer-events-none" />
 
-          <main className="relative z-10">
-            <HeroSection />
-            <ApologySection />
-            <AdmireSection />
-            <ImpactSection />
-            <PromiseSection />
-            <ClosingSection />
-          </main>
-        </motion.div>
+            <main className="relative z-10">
+              <HeroSection />
+              <ApologySection />
+              <AdmireSection />
+              <ImpactSection />
+              <PromiseSection />
+              <ClosingSection />
+            </main>
+          </motion.div>
+        </>
       )}
 
       {pageState === 'game' && (
