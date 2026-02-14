@@ -12,14 +12,14 @@ import AdmireSection from '@/components/sections/AdmireSection';
 import ImpactSection from '@/components/sections/ImpactSection';
 import PromiseSection from '@/components/sections/PromiseSection';
 import ClosingSection from '@/components/sections/ClosingSection';
-import ValentineProposalSection from '@/components/sections/ValentineProposalSection';
+import ValentineProposalPage from '@/components/valentine/ValentineProposalPage';
 import CatchHeartsGame from '@/components/game/CatchHeartsGame';
 import ThemeTransition from '@/components/ThemeTransition';
 import ValentineDedication from '@/components/valentine/ValentineDedication';
 import FullscreenVideo from '@/components/valentine/FullscreenVideo';
 import AuroraBackground from '@/components/AuroraBackground';
 
-type PageState = 'main' | 'game' | 'transition' | 'video' | 'valentine';
+type PageState = 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
 
 const Index = () => {
   const { theme } = useTheme();
@@ -28,7 +28,8 @@ const Index = () => {
   const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
   const handleGameComplete = useCallback(() => { setPageState('transition'); }, []);
   const handleTransitionComplete = useCallback(() => { setPageState('video'); }, []);
-  const handleVideoEnd = useCallback(() => { setPageState('valentine'); }, []);
+  const handleVideoEnd = useCallback(() => { setPageState('proposal'); }, []);
+  const handleProposalComplete = useCallback(() => { setPageState('valentine'); }, []);
 
   return (
     <AnimatePresence mode="wait">
@@ -56,7 +57,6 @@ const Index = () => {
             <ImpactSection />
             <PromiseSection />
             <ClosingSection />
-            <ValentineProposalSection />
           </main>
         </motion.div>
       )}
@@ -71,6 +71,10 @@ const Index = () => {
 
       {pageState === 'video' && (
         <FullscreenVideo key="video" onVideoEnd={handleVideoEnd} />
+      )}
+
+      {pageState === 'proposal' && (
+        <ValentineProposalPage key="proposal" onComplete={handleProposalComplete} />
       )}
 
       {pageState === 'valentine' && (
