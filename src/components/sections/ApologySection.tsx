@@ -70,23 +70,35 @@ const ApologySection = () => {
   };
 
   return (
-    <section className="py-20 px-4 relative will-change-transform" ref={ref}>
-      <div className="max-w-3xl mx-auto" style={{ perspective: '1500px' }}>
-        {/* Navigation arrows - outside the card */}
-        <div className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-30">
+    <section className="py-24 px-4 relative will-change-transform" ref={ref}>
+      {/* Section label */}
+      <motion.div
+        className="flex items-center justify-center gap-4 mb-6"
+        initial={{ opacity: 0 }}
+        animate={isVisible ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/30" />
+        <span className="font-elegant text-xs tracking-[0.4em] uppercase text-muted-foreground">From My Heart</span>
+        <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/30" />
+      </motion.div>
+
+      <div className="max-w-3xl mx-auto relative" style={{ perspective: '1500px' }}>
+        {/* Navigation arrows */}
+        <div className="absolute left-0 md:-left-6 top-1/2 -translate-y-1/2 z-30">
           <motion.button
             onClick={prevLetter}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/70 backdrop-blur-sm border border-white/40 flex items-center justify-center text-primary hover:bg-white/90 transition-colors shadow-lg"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-primary hover:bg-muted/80 transition-colors"
             whileHover={{ scale: 1.1, x: -3 }}
             whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </motion.button>
         </div>
-        <div className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-30">
+        <div className="absolute right-0 md:-right-6 top-1/2 -translate-y-1/2 z-30">
           <motion.button
             onClick={nextLetter}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/70 backdrop-blur-sm border border-white/40 flex items-center justify-center text-primary hover:bg-white/90 transition-colors shadow-lg"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-primary hover:bg-muted/80 transition-colors"
             whileHover={{ scale: 1.1, x: 3 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -110,23 +122,19 @@ const ApologySection = () => {
               exit="exit"
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden"
-              style={{ 
-                transformStyle: 'preserve-3d',
-                backfaceVisibility: 'hidden',
-              }}
+              style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
             >
-              {/* Animated corner glow */}
-              <motion.div 
-                className="absolute top-0 right-0 w-32 h-32"
-                animate={{ opacity: [0.1, 0.3, 0.1] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-bl from-primary/40 to-transparent rounded-bl-full" />
-              </motion.div>
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-24 h-24">
+                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-primary/10 to-transparent" />
+              </div>
+              <div className="absolute bottom-0 left-0 w-24 h-24">
+                <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-accent/10 to-transparent" />
+              </div>
 
               {/* Card shine effect on flip */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
                 initial={{ x: '-100%', opacity: 0 }}
                 animate={{ x: '100%', opacity: [0, 1, 0] }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -141,10 +149,10 @@ const ApologySection = () => {
                       setFlipDirection(index > currentLetter ? 1 : -1);
                       setCurrentLetter(index);
                     }}
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
                       index === currentLetter 
-                        ? 'bg-primary w-6' 
-                        : 'bg-primary/30 hover:bg-primary/50 w-2'
+                        ? 'bg-primary w-8' 
+                        : 'bg-primary/20 hover:bg-primary/40 w-1.5'
                     }`}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
@@ -161,15 +169,15 @@ const ApologySection = () => {
               >
                 <motion.div
                   animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  transition={{ duration: 3, repeat: Infinity }}
                 >
-                  <HeartIcon className="w-6 h-6 text-primary" />
+                  <HeartIcon className="w-5 h-5 text-primary" />
                 </motion.div>
                 <h2 className="font-romantic text-3xl md:text-4xl text-foreground">{letter.title}</h2>
               </motion.div>
 
               {/* Letter content */}
-              <div className="font-elegant text-lg md:text-xl leading-relaxed text-foreground/90 space-y-6 px-2 md:px-6">
+              <div className="font-elegant text-lg md:text-xl leading-relaxed text-foreground/80 space-y-6 px-2 md:px-6">
                 <motion.p 
                   className="first-letter:text-5xl first-letter:font-romantic first-letter:text-primary first-letter:float-left first-letter:mr-3 first-letter:mt-1"
                   initial={{ opacity: 0 }}
@@ -185,7 +193,7 @@ const ApologySection = () => {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.5 + index * 0.08 }}
-                    className={index === letter.paragraphs.length - 1 ? "italic text-primary/80" : ""}
+                    className={index === letter.paragraphs.length - 1 ? "italic text-primary/70" : ""}
                   >
                     {paragraph}
                   </motion.p>
@@ -199,53 +207,22 @@ const ApologySection = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                <motion.p 
-                  className="font-romantic text-2xl text-primary"
-                  whileHover={{ scale: 1.05 }}
-                >
+                <motion.p className="font-romantic text-2xl text-primary" whileHover={{ scale: 1.05 }}>
                   {letter.closing}
                 </motion.p>
-                <motion.p 
-                  className="font-romantic text-3xl text-foreground mt-2"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                >
+                <motion.p className="font-romantic text-3xl text-foreground mt-2" whileHover={{ scale: 1.02, x: 5 }}>
                   {letter.signature}
                 </motion.p>
               </motion.div>
 
               {/* Flip hint */}
               <motion.div 
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-muted-foreground/50"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-muted-foreground/40"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2 }}
               >
-                <motion.div
-                  animate={{ rotateY: [0, 180, 360] }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  <HeartIcon className="w-4 h-4 text-primary/50" />
-                </motion.div>
-                <span className="font-elegant text-sm">Flip to read more</span>
-                <motion.div
-                  animate={{ rotateY: [0, 180, 360] }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, delay: 0.5 }}
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  <HeartIcon className="w-4 h-4 text-primary/50" />
-                </motion.div>
-              </motion.div>
-
-              {/* Bottom decorative element */}
-              <motion.div 
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2"
-                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <HeartIcon className="w-3 h-3 text-lilac" />
-                <HeartIcon className="w-4 h-4 text-primary" />
-                <HeartIcon className="w-3 h-3 text-rose" />
+                <span className="font-elegant text-xs tracking-wider">Flip to read more</span>
               </motion.div>
             </motion.div>
           </AnimatePresence>

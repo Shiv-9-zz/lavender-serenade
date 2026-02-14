@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        romantic: ['"Dancing Script"', 'cursive'],
-        elegant: ['"Cormorant Garamond"', 'serif'],
+        romantic: ['"Playfair Display"', 'serif'],
+        elegant: ['"Lora"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,7 +61,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Romantic palette
         lavender: {
           DEFAULT: "hsl(var(--lavender))",
           light: "hsl(var(--lavender-light))",

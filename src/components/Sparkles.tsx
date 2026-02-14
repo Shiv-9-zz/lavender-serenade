@@ -10,10 +10,10 @@ interface Sparkle {
 }
 
 const colors = [
-  'hsl(270, 60%, 75%)',
-  'hsl(280, 50%, 80%)',
-  'hsl(340, 50%, 85%)',
-  'hsl(270, 70%, 85%)',
+  'hsl(38, 65%, 65%)',
+  'hsl(38, 55%, 75%)',
+  'hsl(190, 35%, 60%)',
+  'hsl(340, 40%, 60%)',
 ];
 
 const Sparkles = () => {
@@ -25,12 +25,12 @@ const Sparkles = () => {
         id: Date.now(),
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: 4 + Math.random() * 8,
+        size: 4 + Math.random() * 6,
         color: colors[Math.floor(Math.random() * colors.length)],
       };
       
-      setSparkles(prev => [...prev.slice(-8), newSparkle]);
-    }, 500);
+      setSparkles(prev => [...prev.slice(-6), newSparkle]);
+    }, 700);
 
     return () => clearInterval(interval);
   }, []);
@@ -42,21 +42,13 @@ const Sparkles = () => {
           <motion.div
             key={sparkle.id}
             initial={{ opacity: 0, scale: 0, rotate: 0 }}
-            animate={{ opacity: [0, 1, 0], scale: [0, 1, 0], rotate: 180 }}
+            animate={{ opacity: [0, 0.8, 0], scale: [0, 1, 0], rotate: 180 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
             className="absolute"
-            style={{
-              left: `${sparkle.x}%`,
-              top: `${sparkle.y}%`,
-            }}
+            style={{ left: `${sparkle.x}%`, top: `${sparkle.y}%` }}
           >
-            <svg
-              width={sparkle.size}
-              height={sparkle.size}
-              viewBox="0 0 24 24"
-              fill={sparkle.color}
-            >
+            <svg width={sparkle.size} height={sparkle.size} viewBox="0 0 24 24" fill={sparkle.color}>
               <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
             </svg>
           </motion.div>

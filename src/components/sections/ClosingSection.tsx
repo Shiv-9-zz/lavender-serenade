@@ -6,41 +6,19 @@ const ClosingSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-24 px-4 relative will-change-transform" ref={ref}>
+    <section className="py-28 px-4 relative will-change-transform" ref={ref}>
       <div className="max-w-4xl mx-auto text-center">
-        {/* Decorative hearts wave */}
-        <motion.div 
-          className="flex justify-center gap-4 mb-8"
-          initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : {}}
+        {/* Vertical line */}
+        <motion.div
+          className="w-px h-16 bg-gradient-to-b from-transparent via-primary/40 to-transparent mx-auto mb-8"
+          initial={{ scaleY: 0 }}
+          animate={isVisible ? { scaleY: 1 } : {}}
           transition={{ duration: 0.8 }}
-        >
-          {[...Array(7)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{ 
-                y: [0, -15, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity, 
-                delay: i * 0.1,
-                ease: "easeInOut"
-              }}
-            >
-              <HeartIcon
-                className={`text-primary ${
-                  i === 3 ? 'w-8 h-8' : i === 2 || i === 4 ? 'w-6 h-6 opacity-70' : 'w-4 h-4 opacity-40'
-                }`}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        />
 
         {/* Main closing message */}
         <motion.h2 
-          className="font-romantic text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 text-glow"
+          className="font-romantic text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 text-glow leading-tight"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -48,7 +26,7 @@ const ClosingSection = () => {
           Parisikha, you matter to me
           <br />
           <motion.span 
-            className="text-primary"
+            className="text-primary italic"
             initial={{ opacity: 0 }}
             animate={isVisible ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.8 }}
@@ -75,24 +53,14 @@ const ClosingSection = () => {
           animate={isVisible ? { scale: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <motion.div 
-            className="h-px w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-            initial={{ width: 0 }}
-            animate={isVisible ? { width: 96 } : {}}
-            transition={{ duration: 1, delay: 0.8 }}
-          />
+          <motion.div className="h-px w-20 bg-gradient-to-r from-transparent to-primary/30" />
           <motion.div
-            animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
+            animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <HeartIcon className="w-6 h-6 text-rose" />
+            <HeartIcon className="w-5 h-5 text-primary" />
           </motion.div>
-          <motion.div 
-            className="h-px w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-            initial={{ width: 0 }}
-            animate={isVisible ? { width: 96 } : {}}
-            transition={{ duration: 1, delay: 0.8 }}
-          />
+          <motion.div className="h-px w-20 bg-gradient-to-l from-transparent to-primary/30" />
         </motion.div>
 
         {/* Signature card */}
@@ -101,7 +69,7 @@ const ClosingSection = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
-          whileHover={{ scale: 1.05, boxShadow: '0 0 60px -10px hsla(270, 60%, 60%, 0.5)' }}
+          whileHover={{ scale: 1.03 }}
         >
           <motion.p 
             className="font-elegant text-lg text-muted-foreground mb-2"
@@ -121,41 +89,14 @@ const ClosingSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Final hearts pulse */}
-        <motion.div 
-          className="mt-16 flex justify-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : {}}
-          transition={{ delay: 1.6 }}
-        >
-          {['lilac', 'primary', 'rose', 'primary', 'lilac'].map((color, i) => (
-            <motion.div
-              key={i}
-              animate={{ 
-                scale: [1, 1.3, 1],
-                opacity: [0.6, 1, 0.6]
-              }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity, 
-                delay: i * 0.15 
-              }}
-            >
-              <HeartIcon 
-                className={`${i === 2 ? 'w-6 h-6' : 'w-4 h-4'} text-${color}`}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
         {/* Footer note */}
         <motion.p 
-          className="mt-16 font-elegant text-sm text-muted-foreground/60"
+          className="mt-20 font-elegant text-sm text-muted-foreground/40"
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ delay: 2 }}
         >
-          Made with love, just for you 💜
+          Made with love, just for you ✦
         </motion.p>
       </div>
     </section>
