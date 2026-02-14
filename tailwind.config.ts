@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        romantic: ['"Playfair Display"', 'serif'],
-        elegant: ['"Lora"', 'serif'],
+        romantic: ['"Great Vibes"', 'cursive'],
+        elegant: ['"Cormorant Garamond"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

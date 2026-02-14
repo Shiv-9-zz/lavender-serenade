@@ -15,89 +15,49 @@ const ImpactSection = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden will-change-transform" ref={ref}>
-      {/* Subtle background glow */}
-      <motion.div 
-        className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, hsla(38, 65%, 55%, 0.06) 0%, transparent 70%)' }}
-        animate={{ scale: [1, 1.3, 1], x: [0, 40, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+    <section className="py-28 px-4 relative overflow-hidden will-change-transform" ref={ref}>
+      {/* Moving light beam */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-[1px]"
+        style={{ background: 'linear-gradient(90deg, transparent 0%, hsla(15, 60%, 65%, 0.3) 50%, transparent 100%)' }}
+        animate={{ x: ['-100%', '100%'] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Section header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.p 
-            className="font-elegant text-xs text-muted-foreground mb-4 tracking-[0.4em] uppercase"
-            initial={{ opacity: 0 }}
-            animate={isVisible ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Because of you
-          </motion.p>
-          <motion.h2 
-            className="font-romantic text-4xl md:text-5xl lg:text-6xl text-foreground text-glow"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            My World is <span className="text-primary italic">Brighter</span>
+        <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} animate={isVisible ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
+          <motion.p className="font-elegant text-xs text-primary/50 mb-4 tracking-[0.5em] uppercase">Because of you</motion.p>
+          <motion.h2 className="font-romantic text-5xl md:text-6xl lg:text-7xl text-foreground text-glow">
+            My World is Brighter
           </motion.h2>
         </motion.div>
 
-        {/* Impact statements */}
-        <div className="space-y-6">
+        <div className="space-y-5">
           {impacts.map((impact, index) => (
             <motion.div
               key={index}
-              className="flex items-center gap-6 group cursor-pointer py-3 border-b border-white/5 last:border-0"
-              initial={{ opacity: 0, x: -40 }}
+              className="flex items-center gap-6 group cursor-pointer py-4 px-6 rounded-xl transition-all duration-500 hover:bg-white/[0.02]"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={isVisible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              whileHover={{ x: 16 }}
+              transition={{ duration: 0.7, delay: 0.3 + index * 0.1 }}
+              whileHover={{ x: index % 2 === 0 ? 12 : -12 }}
             >
               <motion.div 
-                className="flex-shrink-0 w-8 h-8 rounded-full border border-primary/20 flex items-center justify-center"
-                whileHover={{ scale: 1.2, borderColor: 'hsl(38, 65%, 60%)' }}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 3, repeat: Infinity, delay: index * 0.2 }}
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center relative"
+                whileHover={{ scale: 1.2 }}
               >
-                <HeartIcon className="w-3.5 h-3.5 text-primary opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-full border border-primary/15 group-hover:border-primary/40 transition-colors duration-500" />
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ boxShadow: '0 0 20px hsla(15, 60%, 60%, 0.2)' }}
+                />
+                <HeartIcon className="w-4 h-4 text-primary/40 group-hover:text-primary transition-all duration-500" />
               </motion.div>
-              <motion.p 
-                className="font-elegant text-xl md:text-2xl lg:text-3xl text-foreground/70 group-hover:text-foreground transition-colors duration-300 italic"
-                whileHover={{ scale: 1.01 }}
-              >
+              <motion.p className="font-elegant text-xl md:text-2xl lg:text-3xl text-foreground/60 group-hover:text-foreground transition-colors duration-500 italic">
                 "{impact}"
               </motion.p>
             </motion.div>
           ))}
         </div>
-
-        {/* Decorative stars */}
-        <motion.div 
-          className="mt-16 flex justify-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : {}}
-          transition={{ delay: 1.2 }}
-        >
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.8, 1.1, 0.8] }}
-              transition={{ duration: 2 + i * 0.3, repeat: Infinity, delay: i * 0.15 }}
-            >
-              <svg width={i === 2 ? "10" : "6"} height={i === 2 ? "10" : "6"} viewBox="0 0 24 24" fill="hsl(38, 65%, 60%)">
-                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-              </svg>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

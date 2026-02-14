@@ -16,6 +16,7 @@ import CatchHeartsGame from '@/components/game/CatchHeartsGame';
 import ThemeTransition from '@/components/ThemeTransition';
 import ValentineDedication from '@/components/valentine/ValentineDedication';
 import FullscreenVideo from '@/components/valentine/FullscreenVideo';
+import AuroraBackground from '@/components/AuroraBackground';
 
 type PageState = 'main' | 'game' | 'transition' | 'video' | 'valentine';
 
@@ -23,25 +24,13 @@ const Index = () => {
   const { theme } = useTheme();
   const [pageState, setPageState] = useState<PageState>('main');
 
-  const handleGameTrigger = useCallback(() => {
-    setPageState('game');
-  }, []);
-
-  const handleGameComplete = useCallback(() => {
-    setPageState('transition');
-  }, []);
-
-  const handleTransitionComplete = useCallback(() => {
-    setPageState('video');
-  }, []);
-
-  const handleVideoEnd = useCallback(() => {
-    setPageState('valentine');
-  }, []);
+  const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
+  const handleGameComplete = useCallback(() => { setPageState('transition'); }, []);
+  const handleTransitionComplete = useCallback(() => { setPageState('video'); }, []);
+  const handleVideoEnd = useCallback(() => { setPageState('valentine'); }, []);
 
   return (
     <AnimatePresence mode="wait">
-      {/* Main Apology Page (Lavender theme) */}
       {pageState === 'main' && (
         <motion.div
           key="main"
@@ -50,19 +39,15 @@ const Index = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* Background effects */}
+          <AuroraBackground />
           <FloatingPetals />
           <Sparkles />
           <InteractiveHearts />
           <FloatingMusicPlayer songSrc="/audio/raat-bhar.mp3" songName="Raat Bhar" />
-
-          {/* Hidden game trigger */}
           <HiddenGameTrigger onTrigger={handleGameTrigger} />
 
-          {/* Background gradient */}
-          <div className="fixed inset-0 bg-gradient-to-b from-primary/10 via-background to-accent/10 -z-10" />
+          <div className="fixed inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 -z-5 pointer-events-none" />
 
-          {/* Main sections */}
           <main className="relative z-10">
             <HeroSection />
             <ApologySection />
@@ -74,38 +59,20 @@ const Index = () => {
         </motion.div>
       )}
 
-      {/* Hidden Game */}
       {pageState === 'game' && (
-        <CatchHeartsGame 
-          key="game"
-          onGameComplete={handleGameComplete} 
-        />
+        <CatchHeartsGame key="game" onGameComplete={handleGameComplete} />
       )}
 
-      {/* Theme Transition (Lavender to Valentine) */}
       {pageState === 'transition' && (
-        <ThemeTransition 
-          key="transition"
-          onComplete={handleTransitionComplete} 
-        />
+        <ThemeTransition key="transition" onComplete={handleTransitionComplete} />
       )}
 
-      {/* Fullscreen Video after transition */}
       {pageState === 'video' && (
-        <FullscreenVideo
-          key="video"
-          onVideoEnd={handleVideoEnd}
-        />
+        <FullscreenVideo key="video" onVideoEnd={handleVideoEnd} />
       )}
 
-      {/* Valentine Dedication Page (Red theme) */}
       {pageState === 'valentine' && (
-        <motion.div
-          key="valentine"
-          className="theme-valentine"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
+        <motion.div key="valentine" className="theme-valentine" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <ValentineDedication />
         </motion.div>
       )}
