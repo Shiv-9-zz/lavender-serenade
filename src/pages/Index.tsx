@@ -21,6 +21,13 @@ import AuroraBackground from '@/components/AuroraBackground';
 
 type PageState = 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
 
+const pageTransition = {
+  initial: { opacity: 0, scale: 1.02, filter: 'blur(8px)' },
+  animate: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+  exit: { opacity: 0, scale: 0.98, filter: 'blur(8px)' },
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+};
+
 const Index = () => {
   const { theme } = useTheme();
   const [pageState, setPageState] = useState<PageState>('main');
@@ -37,9 +44,7 @@ const Index = () => {
         <motion.div
           key="main"
           className="theme-lavender relative min-h-screen overflow-x-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          {...pageTransition}
         >
           <AuroraBackground />
           <FloatingPetals />
@@ -62,23 +67,37 @@ const Index = () => {
       )}
 
       {pageState === 'game' && (
-        <CatchHeartsGame key="game" onGameComplete={handleGameComplete} />
+        <motion.div key="game" {...pageTransition}>
+          <CatchHeartsGame onGameComplete={handleGameComplete} />
+        </motion.div>
       )}
 
       {pageState === 'transition' && (
-        <ThemeTransition key="transition" onComplete={handleTransitionComplete} />
+        <motion.div key="transition" {...pageTransition}>
+          <ThemeTransition onComplete={handleTransitionComplete} />
+        </motion.div>
       )}
 
       {pageState === 'video' && (
-        <FullscreenVideo key="video" onVideoEnd={handleVideoEnd} />
+        <motion.div
+          key="video"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <FullscreenVideo onVideoEnd={handleVideoEnd} />
+        </motion.div>
       )}
 
       {pageState === 'proposal' && (
-        <ValentineProposalPage key="proposal" onComplete={handleProposalComplete} />
+        <motion.div key="proposal" {...pageTransition}>
+          <ValentineProposalPage onComplete={handleProposalComplete} />
+        </motion.div>
       )}
 
       {pageState === 'valentine' && (
-        <motion.div key="valentine" className="theme-valentine" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div key="valentine" className="theme-valentine" {...pageTransition}>
           <ValentineDedication />
         </motion.div>
       )}
