@@ -12,6 +12,7 @@ import AdmireSection from '@/components/sections/AdmireSection';
 import ImpactSection from '@/components/sections/ImpactSection';
 import PromiseSection from '@/components/sections/PromiseSection';
 import ClosingSection from '@/components/sections/ClosingSection';
+import ValentineProposalSection from '@/components/sections/ValentineProposalSection';
 import CatchHeartsGame from '@/components/game/CatchHeartsGame';
 import ThemeTransition from '@/components/ThemeTransition';
 import ValentineDedication from '@/components/valentine/ValentineDedication';
@@ -55,6 +56,7 @@ const Index = () => {
             <ImpactSection />
             <PromiseSection />
             <ClosingSection />
+            <ValentineProposalSection />
           </main>
         </motion.div>
       )}
