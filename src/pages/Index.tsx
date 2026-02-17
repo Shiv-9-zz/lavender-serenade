@@ -18,6 +18,7 @@ import ThemeTransition from '@/components/ThemeTransition';
 import ValentineDedication from '@/components/valentine/ValentineDedication';
 import FullscreenVideo from '@/components/valentine/FullscreenVideo';
 import AuroraBackground from '@/components/AuroraBackground';
+import ThreeBackground from '@/components/ThreeBackground';
 
 type PageState = 'loading' | 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
 
@@ -165,7 +166,7 @@ const Index = () => {
             className="theme-lavender relative min-h-screen overflow-x-hidden"
             {...pageTransition}
           >
-            <AuroraBackground />
+            <ThreeBackground />
             <FloatingPetals />
             <Sparkles />
             <InteractiveHearts />
