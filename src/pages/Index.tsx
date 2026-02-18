@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
 import FloatingPetals from '@/components/FloatingPetals';
@@ -20,7 +20,7 @@ import FullscreenVideo from '@/components/valentine/FullscreenVideo';
 import AuroraBackground from '@/components/AuroraBackground';
 import ThreeBackground from '@/components/ThreeBackground';
 
-type PageState = 'loading' | 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
+type PageState = 'intro' | 'loading' | 'main' | 'game' | 'transition' | 'video' | 'proposal' | 'valentine';
 
 const pageTransition = {
   initial: { opacity: 0, scale: 1.02, filter: 'blur(8px)' },
@@ -31,7 +31,8 @@ const pageTransition = {
 
 const Index = () => {
   const { theme } = useTheme();
-  const [pageState, setPageState] = useState<PageState>('loading');
+  const [pageState, setPageState] = useState<PageState>('intro');
+  const introVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
   const handleGameComplete = useCallback(() => { setPageState('transition'); }, []);
@@ -39,13 +40,44 @@ const Index = () => {
   const handleVideoEnd = useCallback(() => { setPageState('proposal'); }, []);
   const handleProposalComplete = useCallback(() => { setPageState('valentine'); }, []);
 
+  const handleIntroEnd = useCallback(() => { setPageState('loading'); }, []);
+
   useEffect(() => {
-    const timer = setTimeout(() => setPageState('main'), 3500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (pageState === 'loading') {
+      const timer = setTimeout(() => setPageState('main'), 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [pageState]);
 
   return (
     <AnimatePresence mode="wait">
+      {pageState === 'intro' && (
+        <motion.div
+          key="intro"
+          className="fixed inset-0 z-[300] bg-black flex items-center justify-center"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <video
+            ref={introVideoRef}
+            src="/videos/intro-video.mp4"
+            autoPlay
+            playsInline
+            onEnded={handleIntroEnd}
+            className="w-full h-full object-contain"
+            onClick={() => setPageState('loading')}
+          />
+          <button
+            onClick={() => setPageState('loading')}
+            className="absolute bottom-8 right-8 text-white/60 hover:text-white text-sm font-elegant transition-colors"
+          >
+            Skip →
+          </button>
+        </motion.div>
+      )}
+
       {pageState === 'loading' && (
         <motion.div
           key="loading"
