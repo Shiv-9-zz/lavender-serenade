@@ -50,6 +50,32 @@ const Index = () => {
     setPageState('main');
   }, []);
 
+  // Attempt autoplay; show play button if blocked
+  useEffect(() => {
+    if (pageState !== 'intro') return;
+    const video = introVideoRef.current;
+    if (!video) return;
+
+    const tryPlay = async () => {
+      try {
+        video.muted = true;
+        await video.play();
+        // Autoplay worked (muted). Now try unmuting — browser may re-block.
+        video.muted = false;
+        // If unmuting caused a pause, keep it muted but playing
+        if (video.paused) {
+          video.muted = true;
+          await video.play();
+        }
+      } catch {
+        // Autoplay completely blocked — need user gesture
+        setShowPlayButton(true);
+      }
+    };
+
+    tryPlay();
+  }, [pageState]);
+
 
 
 
@@ -67,22 +93,9 @@ const Index = () => {
           <video
             ref={introVideoRef}
             src="/videos/intro-video.mp4"
-            muted
-            autoPlay
             playsInline
+            preload="auto"
             onEnded={handleIntroEnd}
-            onPlay={() => {
-              // Try unmuting after autoplay starts
-              if (introVideoRef.current) {
-                introVideoRef.current.muted = false;
-              }
-            }}
-            onPause={() => {
-              // If browser paused it (autoplay blocked), show play button
-              if (introVideoRef.current && introVideoRef.current.currentTime === 0) {
-                setShowPlayButton(true);
-              }
-            }}
             className="w-full h-full object-contain"
           />
           {showPlayButton && (
