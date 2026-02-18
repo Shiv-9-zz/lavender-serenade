@@ -32,7 +32,8 @@ const pageTransition = {
 const Index = () => {
   const { theme } = useTheme();
   const [pageState, setPageState] = useState<PageState>('intro');
-  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [introStarted, setIntroStarted] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const introVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
@@ -50,31 +51,38 @@ const Index = () => {
     setPageState('main');
   }, []);
 
-  // Attempt autoplay; show play button if blocked
+  // Attempt muted autoplay on mount, show overlay regardless for unmute
   useEffect(() => {
     if (pageState !== 'intro') return;
     const video = introVideoRef.current;
     if (!video) return;
 
-    const tryPlay = async () => {
-      try {
-        video.muted = true;
-        await video.play();
-        // Autoplay worked (muted). Now try unmuting — browser may re-block.
-        video.muted = false;
-        // If unmuting caused a pause, keep it muted but playing
-        if (video.paused) {
-          video.muted = true;
-          await video.play();
-        }
-      } catch {
-        // Autoplay completely blocked — need user gesture
-        setShowPlayButton(true);
-      }
-    };
-
-    tryPlay();
+    // Try muted autoplay so the video is ready
+    video.muted = true;
+    video.play().catch(() => {});
   }, [pageState]);
+
+  const handleTapToPlay = useCallback(() => {
+    const video = introVideoRef.current;
+    if (!video) return;
+    video.muted = false;
+    setIsMuted(false);
+    video.currentTime = 0;
+    video.play().catch(() => {
+      // If unmuted play fails, play muted
+      video.muted = true;
+      setIsMuted(true);
+      video.play().catch(() => {});
+    });
+    setIntroStarted(true);
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    const video = introVideoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  }, []);
 
 
 
@@ -94,26 +102,41 @@ const Index = () => {
             ref={introVideoRef}
             src="/videos/intro-video.mp4"
             playsInline
+            muted
             preload="auto"
             onEnded={handleIntroEnd}
             className="w-full h-full object-contain"
           />
-          {showPlayButton && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer"
-              onClick={() => {
-                if (introVideoRef.current) {
-                  introVideoRef.current.muted = false;
-                  introVideoRef.current.play();
-                  setShowPlayButton(false);
-                }
-              }}
+
+          {/* Tap-to-play overlay — always shown until user taps */}
+          {!introStarted && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm"
+              onClick={handleTapToPlay}
             >
-              <span className="text-7xl mb-4">▶️</span>
-              <span className="text-white/80 font-elegant text-xl">Tap to play</span>
-            </motion.button>
+              <motion.div
+                animate={{ scale: [1, 1.15, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-24 h-24 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center mb-6 backdrop-blur-md"
+              >
+                <span className="text-white text-5xl ml-2">▶</span>
+              </motion.div>
+              <p className="text-white/90 font-elegant text-2xl mb-2">Tap to Play</p>
+              <p className="text-white/50 font-elegant text-sm">with sound 🔊</p>
+            </motion.div>
+          )}
+
+          {/* Mute/Unmute toggle — shown after playback starts */}
+          {introStarted && (
+            <button
+              onClick={toggleMute}
+              className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white transition-colors"
+            >
+              {isMuted ? '🔇' : '🔊'}
+            </button>
           )}
           <button
             onClick={() => handleIntroEnd()}
