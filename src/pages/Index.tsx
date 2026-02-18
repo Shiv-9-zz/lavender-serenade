@@ -32,6 +32,7 @@ const pageTransition = {
 const Index = () => {
   const { theme } = useTheme();
   const [pageState, setPageState] = useState<PageState>('intro');
+  const [showPlayButton, setShowPlayButton] = useState(false);
   const introVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleGameTrigger = useCallback(() => { setPageState('game'); }, []);
@@ -66,15 +67,44 @@ const Index = () => {
           <video
             ref={introVideoRef}
             src="/videos/intro-video.mp4"
+            muted
             autoPlay
             playsInline
             onEnded={handleIntroEnd}
+            onPlay={() => {
+              // Try unmuting after autoplay starts
+              if (introVideoRef.current) {
+                introVideoRef.current.muted = false;
+              }
+            }}
+            onPause={() => {
+              // If browser paused it (autoplay blocked), show play button
+              if (introVideoRef.current && introVideoRef.current.currentTime === 0) {
+                setShowPlayButton(true);
+              }
+            }}
             className="w-full h-full object-contain"
-            onClick={() => handleIntroEnd()}
           />
+          {showPlayButton && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer"
+              onClick={() => {
+                if (introVideoRef.current) {
+                  introVideoRef.current.muted = false;
+                  introVideoRef.current.play();
+                  setShowPlayButton(false);
+                }
+              }}
+            >
+              <span className="text-7xl mb-4">▶️</span>
+              <span className="text-white/80 font-elegant text-xl">Tap to play</span>
+            </motion.button>
+          )}
           <button
             onClick={() => handleIntroEnd()}
-            className="absolute bottom-8 right-8 text-white/60 hover:text-white text-sm font-elegant transition-colors"
+            className="absolute bottom-8 right-8 z-10 text-white/60 hover:text-white text-sm font-elegant transition-colors"
           >
             Skip →
           </button>
