@@ -40,7 +40,14 @@ const Index = () => {
   const handleVideoEnd = useCallback(() => { setPageState('proposal'); }, []);
   const handleProposalComplete = useCallback(() => { setPageState('valentine'); }, []);
 
-  const handleIntroEnd = useCallback(() => { setPageState('loading'); }, []);
+  const handleIntroEnd = useCallback(() => {
+    if (introVideoRef.current) {
+      introVideoRef.current.pause();
+      introVideoRef.current.src = '';
+      introVideoRef.current.load();
+    }
+    setPageState('loading');
+  }, []);
 
   useEffect(() => {
     if (pageState === 'loading') {
