@@ -24,14 +24,15 @@ const letters = [
     greeting: "My dear Parisikha,",
     paragraphs: [
       "I don't know if I always say things the right way, but I hope you can feel what I mean when I say this — you matter to me. More than moments, more than words, more than I sometimes manage to show.",
-      "There's something about you that brings calm into my chaos. The way you exist, the way you think, the way you feel things deeply — it stays with me. You have this quiet strength and warmth that makes everything feel a little softer, a little better. Just knowing you're there changes how the world feels to me.",
-      "I care about you in ways that are gentle and constant. In the small moments. In the silence. In the way I notice things that remind me of you without even trying. You've become someone my heart naturally leans toward, and that's not something I take lightly.",
-      "If there were moments where I didn't express this care clearly enough, or where my actions didn't reflect what I feel — I'm sorry for that. Not in a heavy way, but in an honest one. You deserve clarity, warmth, and reassurance, and I'm learning to give that better.",
+      "I just want to make things okay between us last few days have not been good for us for our relationship... I know aaisi chize hui h ki it will effect you and me but it's about we deal with it together...",
+      "I love you so so sooo much ki mai ye bta bhi nhi sekta..i am dying to talk to you thodi der k liye but I want to I want to feel you in my arms mai abhi tk usi regret me hu aur hmesha rhunga jabtk tum mujhe bcha nhi leti I am still very very very sorry about that...",
+      "I know the nazar 🧿 is real logo ne lga di h we are getting away ....but I don't want to get away I want to be with you i want ki ye jo v hua hum sath me isse ubhre ... It feels like decades since we have sat together and felt each other ",
       "This isn't about perfection. It's about intention. And my intention has always been you — your peace, your smile, your comfort. I want to be someone who adds calm to your life, someone you feel safe with, someone who chooses you thoughtfully, every time.",
-      "I just wanted you to know this — simply, sincerely, and without pressure. You are cared for. You are appreciated. And you mean more to me than you probably realize."
+      "I had this as my major fault i know that and I am really really sorryyyyyyyyyyyyyyyy about it kya kru insaan hu ho gai galti khami h meri accept kr liya maine ab kitna punish krogi ab toh bs ek baar gle se lga lo aur boldo i love you ",
+      "Dil taras rha h ye sunne ko bs ... please ab maaf krdo aur sath aajao mere..lga lo gle se"
     ],
     closing: "Always,",
-    signature: "— With warmth and care"
+    signature: "— With warmth,care and love"
   }
 ];
 
