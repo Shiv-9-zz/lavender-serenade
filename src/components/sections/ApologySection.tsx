@@ -10,11 +10,13 @@ const letters = [
     greeting: "Dearest Parisikha,",
     paragraphs: [
       "I know tum naraz ho I know tumhe bura lga h i know ki tum merese baat nhi Krna chahhogi and i understand that..I have realised my mistake mujhe apni khamiyan pta h aur hn i know ki mai bhot slow hu unpr kaam krne k liye but trust me when I say this you mean world to me every day every second is where I think of is only you i know tum ye padh k bologi ki sb thik h sort h but mujhe pta chal jata h kya sort h kya nhi mujhe nhi pta tum ye msg pura padhogi ya nhi but I hope you do",
-      "Tum merese upset ho aur hona bhi chahiye i should have stood up at that moment and its killing me every second that I didn't mai kitni bhi sorry bol lu kitna bhi justification dedu I won't matter much but what I can say is I am ready to change i am ready to adapt for you..",
-      "Mujhe nhi pta tha ye aaisi situation itni jaldi aajayegi aaisa sb hoga i thought ki sb acha chal rha h koi dikkat kahi nhi h but all of a sudden ye sb hua mai koi bahana nhi dena chata hu ki mai ye tha wo tha .... I just simply accept meri galti and I can assure you that its the last time this happened...",
+      "I didn't know things would go this way...I had no intention ki aaisa kuch kharab ho ...",
+      "I just wanted to fix things between us merese jo bhi galti hui thi I wanted ki wo thik ho jaae Even though you said ki sb thik h normal h I still blame myself everyday for that and probably will until you console me down...I didn't had any bad intentions about anything I just want to make things right..why ? Because of fear of loosing you...",
+      "I fucked up big time I know I shouldn't have but it isy nature ki to fix up things I am a overthinker I do this and I am really really really really sorry for that....",
+      "I just wanted to say that I will always blame myself for all this mess and i will never be able to overcome it I am really sorry parisikha...you mean more to me than you know...i didn't had any bad intentions behind my actions ",
+      "I am really sorry I don't even know what to say I don't even know i deserve you i don't I really really really love you and I am willing to change all of my bad actions for us so that I can be the person you look at me to be",
       "I just wanted to ask you for a fresh start over everything that happened har galti har argument hrr chiz k liye I am genuinely sorry form bottom of my heart i promise you to never let you down and i promise you will see this",
-      "Please know that this apology isn't about asking for anything in return. It's simply about telling you the truth: I was wrong, I am sorry, and you matter to me more than words could ever express.",
-      "If you forgive me for everything and tumhe Mera ye fresh start Krna thik lge toh give me a call..mujhe bulana and give me a tight hug ."
+      "If you forgive me for everything and tumhe Mera ye fresh start Krna thik lge toh give me a call..mujhe bulana and give me a tight hug."
     ],
     closing: "With all my heart I will be waiting,",
     signature: "— Yours, always"
